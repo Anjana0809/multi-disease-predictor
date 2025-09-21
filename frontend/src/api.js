@@ -1,45 +1,52 @@
 // frontend/src/api.js
-// Simple wrapper for calling the FastAPI backend.
-// Uses Vite env var VITE_API_URL when available, otherwise falls back to localhost.
+// API wrapper for multi-disease predictor backend.
+// Uses Vite env var VITE_API_URL when available.
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
+function base(path = "") {
+  return `${API_URL.replace(/\/$/, "")}${path}`;
+}
+
 /**
- * POST data to backend predict endpoint for a given disease
- * @param {string} disease - e.g. "diabetes" or "heart"
- * @param {Object} payload - object containing the feature values
+ * Returns the root info (available diseases).
+ * Keep the name getAvailableDiseases because App.jsx imports that name.
+ */
+export async function getAvailableDiseases() {
+  const res = await fetch(base("/"));
+  if (!res.ok) {
+    const text = await res.text().catch(() => res.statusText);
+    throw new Error(`Failed to fetch available diseases: ${res.status} ${text}`);
+  }
+  const json = await res.json();
+  // older frontend might expect { available_diseases: [...] } or similar.
+  // Return the same object so both shapes work.
+  return json;
+}
+
+/**
+ * Fetch schema for a given disease
+ */
+export async function getSchema(disease) {
+  const res = await fetch(base(`/schema/${disease}`));
+  if (!res.ok) throw new Error(`Failed to fetch schema for ${disease}`);
+  return res.json();
+}
+
+/**
+ * Predict for a disease
  */
 export async function predictDisease(disease, payload) {
-  const url = `${API_URL.replace(/\/$/, "")}/predict/${disease}`;
-  const res = await fetch(url, {
+  const res = await fetch(base(`/predict/${disease}`), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
 
   if (!res.ok) {
-    // Read error message from backend if present
-    let text;
-    try { text = await res.text(); } catch (e) { text = res.statusText; }
+    const text = await res.text().catch(() => res.statusText);
     throw new Error(`Request failed: ${res.status} ${text}`);
   }
 
-  return res.json();
-}
-
-/**
- * Get available diseases or metadata for a disease
- */
-export async function getRoot() {
-  const url = `${API_URL.replace(/\/$/, "")}/`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch root info");
-  return res.json();
-}
-
-export async function getSchema(disease) {
-  const url = `${API_URL.replace(/\/$/, "")}/schema/${disease}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch schema");
   return res.json();
 }
