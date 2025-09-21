@@ -1,5 +1,6 @@
 // frontend/src/api.js
-const BASE = import.meta.env.VITE_API_BASE || "http://localhost:8000";
+const BASE = import.meta.env.VITE_API_BASE || "const API_BASE = "https://multi-disease-predictor-backend-flm7.onrender.com";
+";
 console.log("[api] BASE URL =", BASE);
 
 async function fetchJson(url, opts = {}) {
