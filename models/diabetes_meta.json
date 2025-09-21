@@ -1,0 +1,46 @@
+{
+  "features": [
+    "Pregnancies",
+    "Glucose",
+    "BloodPressure",
+    "SkinThickness",
+    "Insulin",
+    "BMI",
+    "DiabetesPedigreeFunction",
+    "Age"
+  ],
+  "feature_importances": [
+    [
+      "Glucose",
+      0.26607311856320764
+    ],
+    [
+      "BMI",
+      0.16141999833819937
+    ],
+    [
+      "Age",
+      0.13086055554084824
+    ],
+    [
+      "DiabetesPedigreeFunction",
+      0.12708860635932254
+    ],
+    [
+      "BloodPressure",
+      0.08633455928215163
+    ],
+    [
+      "Pregnancies",
+      0.0842767329440672
+    ],
+    [
+      "Insulin",
+      0.07375236289104074
+    ],
+    [
+      "SkinThickness",
+      0.07019406608116267
+    ]
+  ]
+}
