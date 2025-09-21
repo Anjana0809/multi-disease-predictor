@@ -1,0 +1,12 @@
+﻿.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Env files
+.env
+
+# CSV data
+*.csv
