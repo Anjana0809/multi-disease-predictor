@@ -1,0 +1,233 @@
+/* src/index.css - colorful & brighter result visuals */
+
+/* ---------- palette ---------- */
+:root {
+  --bg-1: #071122;
+  --bg-2: #0b1930;
+
+  /* card tones */
+  --card-bg: rgba(255,255,255,0.02);
+  --card-border: rgba(255,255,255,0.04);
+
+  /* accents */
+  --accent-diabetes: #22c55e; /* green */
+  --accent-heart: #f43f5e; /* pink/red */
+  --accent-breast: #8b5cf6; /* purple */
+
+  --muted: rgba(230,238,248,0.66);
+  --text: #e6eef8;
+  --link-color: #60a5fa; /* visible on bright result bg */
+  --result-bg: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,252,0.98));
+  --result-text: #071029;
+  --result-accent: #34d399;
+}
+
+/* ---------- page bg ---------- */
+html,body,#root { height:100%; }
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    linear-gradient(160deg,var(--bg-1) 0%, #07162a 30%, var(--bg-2) 100%),
+    radial-gradient(700px 320px at 10% 20%, rgba(10,40,60,0.10), transparent 20%),
+    radial-gradient(500px 240px at 95% 80%, rgba(80,40,90,0.04), transparent 20%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ---------- layout ---------- */
+.container {
+  max-width:1100px;
+  margin:28px auto;
+  padding:24px;
+  text-align:center;
+}
+
+/* ---------- header ---------- */
+h1 {
+  font-size:40px;
+  font-weight:800;
+  margin-bottom:6px;
+  color: #ffffff;
+}
+.subtitle {
+  color: var(--muted);
+  margin-bottom:18px;
+}
+
+/* ---------- cards ---------- */
+.dashboard-card, .card, .form-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:14px;
+  border:1px solid var(--card-border);
+  box-shadow: 0 14px 50px rgba(2,6,23,0.6);
+  padding:22px;
+}
+
+/* ---------- form internals ---------- */
+.form-inner { padding:18px; }
+.form-title { font-size:22px; font-weight:700; margin:0; }
+.small-muted { color: var(--muted); font-size:14px; }
+hr.soft { border:0; border-top:1px solid rgba(255,255,255,0.04); margin:12px 0; }
+
+/* ---------- labels & inputs ---------- */
+.form-label {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:6px;
+  font-size:15px;
+}
+.input {
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color:var(--text);
+  font-size:15px;
+  outline:none;
+  box-sizing:border-box;
+}
+.input:focus {
+  border-color: rgba(96,165,250,0.9);
+  box-shadow: 0 6px 18px rgba(96,165,250,0.08);
+}
+.input::placeholder{ color: rgba(230,238,248,0.36); }
+
+/* ---------- buttons ---------- */
+.btn { padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer; border:none; }
+.btn-primary {
+  background: linear-gradient(180deg,#22c55e,#059669);
+  color:#062014;
+}
+.btn-heart {
+  background: linear-gradient(180deg,#fb7185,#ef4444);
+  color:white;
+}
+.btn-breast {
+  background: linear-gradient(180deg,#a78bfa,#7c3aed);
+  color:white;
+}
+.btn-ghost {
+  background:transparent;
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+/* ---------- info icon ---------- */
+.info-icon {
+  width:30px; height:30px; border-radius:8px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  color:var(--text); cursor:pointer;
+}
+
+/* ---------- tooltip portal styles ---------- */
+.tooltip-portal {
+  position: absolute;
+  z-index: 999999;
+  width: 100%;
+  max-width: 480px;
+  transform-origin: top right;
+  pointer-events: auto;
+}
+.tooltip-box {
+  background: #ffffff;
+  color: var(--result-text);
+  border-radius:12px;
+  padding:14px;
+  font-size:14px;
+  box-shadow: 0 14px 40px rgba(2,6,23,0.12);
+  border: 1px solid rgba(2,6,23,0.06);
+}
+.tooltip-title { font-size:13px; color:#6b7280; }
+.tooltip-help { margin-top:8px; font-weight:700; color:#072029; }
+.tooltip-more { margin-top:8px; color:#334155; font-size:14px; }
+.tooltip-example { margin-top:8px; color:#475569; font-size:13px; }
+
+/* ---------- result card (BRIGHT) ---------- */
+.result-card {
+  margin-top:16px;
+  padding:18px;
+  border-radius:14px;
+  border:1px solid rgba(2,6,23,0.06);
+  background: var(--result-bg);
+  color: var(--result-text);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.08);
+}
+.result-top {
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.result-emoji {
+  font-size:40px;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.12));
+}
+.result-main {
+  flex:1;
+}
+.result-disease {
+  font-size:20px;
+  font-weight:800;
+  margin:0;
+}
+.result-prediction {
+  font-size:15px;
+  margin-top:6px;
+  color:#334155;
+}
+.prob-bar {
+  margin-top:10px;
+  height:12px;
+  background: rgba(2,6,23,0.06);
+  border-radius:12px;
+  overflow:hidden;
+}
+.prob-fill {
+  height:100%;
+  border-radius:12px;
+  transition: width 400ms ease;
+  background: linear-gradient(90deg,var(--result-accent), #06b6a4);
+}
+
+/* ---------- suggestion links ---------- */
+.suggestion-link {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight:700;
+}
+.suggestion-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- parameter analysis list ---------- */
+.param-list { margin:12px 0 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+.param-item {
+  background: rgba(2,6,23,0.02);
+  padding:10px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1px solid rgba(2,6,23,0.03);
+}
+.param-key { font-weight:700; color:#0f172a; min-width:160px; }
+.param-val { color:#0f172a; font-weight:600; }
+.param-actions { margin-left:auto; }
+
+/* ---------- responsive ---------- */
+@media (max-width:720px) {
+  .tooltip-portal { width: calc(100% - 32px); left: 16px !important; right:auto !important; top: auto !important; bottom: 16px !important; position:fixed; }
+  .result-top { flex-direction:column; align-items:flex-start; gap:8px; }
+}
